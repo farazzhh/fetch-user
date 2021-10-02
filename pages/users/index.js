@@ -1,4 +1,19 @@
-import Link from 'next/link'
+import Link from "next/link";
+export const getStaticPaths = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data = res.json();
+
+  const paths = data.map((user) => {
+    return {
+      params: { id: user.id },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
 
 export const getStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -14,7 +29,9 @@ const Users = ({ users }) => {
   return (
     <section className="w-100 h-screen ">
       <div className="container mx-auto p-4">
-        <h1 className="text-xl my-4 bg-gray-800 text-white p-4 rounded-2xl text-center">All Users</h1>
+        <h1 className="text-xl my-4 bg-gray-800 text-white p-4 rounded-2xl text-center">
+          All Users
+        </h1>
         <div className="px-1">
           {users.map((user) => (
             <Link href={"/users/" + user.id} key={user.id} className="m-4 ">
