@@ -1,6 +1,7 @@
-import Link from "next/link"
+import Link from "next/link";
+
 export const getStaticPaths = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch("https://jsonplaceholder.typicode.com/users/");
   const data = await res.json();
 
   const paths = data.map((user) => {
@@ -21,14 +22,14 @@ export const getStaticProps = async (context) => {
   const data = await res.json();
 
   return {
-    props: { user: data }
+    props: { user: data },
   };
 };
 
-export const Details = ({user}) => {
+export const Details = ({ user }) => {
   return (
     <div className="container mx-auto p-4 h-screen flex flex-col justify-center items-center">
-      <div className="bg-yellow-600 px-4 py-2 rounded-md text-center ">
+      <div className=" bg-yellow-600 px-4 py-2 rounded-md text-center shadow-md">
         <span className="text-gray-100 text-xl">User Details</span>
       </div>
       <div className="flex flex-col text-center p-4">
